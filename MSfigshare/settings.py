@@ -125,6 +125,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # django-registration-redux settings
 ACCOUNT_ACTIVATION_DAYS = 3
 REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/'
 
 #django sites settings
 SITE_ID = 1
+
