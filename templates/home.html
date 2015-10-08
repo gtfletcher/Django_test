@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<!-- Overrides base code block but also Imports the block super -->
+{% block head_title %} Welcome | {{block.super}}{% endblock %}
+
+{%block head_text %}
+<!-- jumbotron class adds a coloured container if the default sytle fill -->
+<div class="jumbotron">
+    <div class="row">     
+        <div class='col-sm-6'>
+            <h1> Test_Django_project </h1>
+            <p class="lead" style="text-align:left;"> This is the home page of the test Django project.</p>
+        </div>
+        <div class='col-sm-4' style="background-color:black;height:200px"></div>
+    
+    </div>
+</div>
+{%endblock  %}
+<style>
+{%block style%}
+
+{% endblock %}
+</style>
+<!-- This block is defined in the base master template-->
+{% block content %}
+{{block.super}}
+<!--Creates a row of colums  -->
+<div class="row">
+<!--  Creates one column 3 wide total must be < 12  -->       
+    <p class="lead"> {{template_title}}</p>    
+    <div class="col-sm-6 col-md-3 pull-left">
+        <!-- The form to sign up  -->
+        <form method='POST' action='' >{% csrf_token %}
+        <!-- using crispy-forms third party lib for bootstrap 3 -->
+        {{form|crispy}}
+        <!-- Make a button for the user to press  -->
+        <input class='btn btn-primary' type='submit' value='Sign Up' />
+        </form>
+    </div>
+    <!-- Spacer col sm=12 md = 8  -->
+    <div class="col-sm-1 col-md-2 "></div>     
+
+    <div class="col-sm-5 col-md-3 ">
+        <p class="lead text-align-center" > Please Sign up for our newsletter </p>
+    </div>
+
+</div>
+{% endblock %}
+<!-- it will only get called if the block of code is called in base.html -->

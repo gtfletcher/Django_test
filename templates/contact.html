@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %} ContactUs | {{block.super}}{% endblock %}
+{%block head_text %}
+<!-- jumbotron class adds a coloured container if the default sytle fill -->
+
+{% if title %}
+<div class="row">
+    <div class= "col-sm-7 push-left">
+        <div class="jumbotron">
+                <h1> Welcome To Our {{title}} Page </h1>
+                <p class="lead" style="text-align:left;"> Please enter your message below</p>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{%endblock  %}
+
+{% block content_fluid %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-7">
+            <form method='POST' action=''>{% csrf_token %}
+            {{form|crispy}}
+            <input class='btn btn-primary'  type='submit' value='Submit' />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
