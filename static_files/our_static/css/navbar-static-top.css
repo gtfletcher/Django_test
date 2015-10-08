@@ -3,6 +3,18 @@ body {
 }
 
 .navbar-static-top {
-  margin-bottom: 19px;
+  margin-bottom: 2px;
+  background-color:rgba(255, 0, 0, 0.74);
+  border-color: rgba(255, 0, 0, 0.74);
+  color: #FFF;
 }
 
+.navbar-default .navbar-brand{
+ color:#FFF;
+
+}
+
+.navbar-default .navbar-brand:hover{
+ color:black;
+
+}

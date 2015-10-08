@@ -12,12 +12,15 @@
 
     <title>{% block head_title %}Django_test_project{% endblock %} </title>
 
+    <!--- load global styles  --->
      {% include 'head_css.html' %}
   
   
-    <!-- Our own style block -->
+    <!-- Our own style block overwrite globals -->
     <style>
-    {% block style %}{% endblock %}
+    {% block style %}
+ 
+    {% endblock %}
     </style>
   </head>
         
