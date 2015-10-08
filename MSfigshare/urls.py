@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^contact/$' , 'newsletter.views.contact' , name='contact' ), # contact page
     url(r'^aboutus/$' , 'MSfigshare.views.about' , name='aboutus' ), # aboutus page
     url(r'^$' , 'newsletter.views.home' , name='home' ), # all other pages
+    url(r'^accounts/', include('registration.backends.default.urls')), # accounts/register accounts/login
+
 ] 
 
 if settings.DEBUG:

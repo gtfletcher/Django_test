@@ -2,6 +2,22 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 
+<!-- Overrides base code block but also Imports the block super -->
+{% block head_title %} Register | {{block.super}}{% endblock %}
+
+{%block head_text %}
+<!-- jumbotron class adds a coloured container if the default sytle fill -->
+{% if title %}
+<div class="row">
+    <div class= "col-sm-7 push-left">
+        <div class="jumbotron">
+                <h1> Welcome To Our {{title}} Page </h1>
+                <p class="lead" style="text-align:left;"> Registration is free</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+{%endblock  %}
 
 {% block content %}
 <div class='row'>
