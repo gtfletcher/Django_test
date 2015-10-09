@@ -32,7 +32,7 @@ def home(request):
         instance.save()
         context = { "template_title" : "Thank you for Signing up"}
 
-        
+         
     return render(request, "home.html" , context )
 
 
