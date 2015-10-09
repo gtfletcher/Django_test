@@ -5,14 +5,12 @@
 
 {%block head_text %}
 <!-- jumbotron class adds a coloured container if the default sytle fill -->
+<div class= "col-sm-7  col-sm-offset-2 push-left">
 <div class="jumbotron">
     <div class="row">     
-        <div class='col-sm-6'>
-            <h1> Test_Django_project </h1>
+            <h1> Test Django project </h1>
             <p class="lead" style="text-align:left; font-color: white"> This is the home page of the test Django project.</p>
         </div>
-        <div class='col-sm-4' style="background-color:black;height:200px"></div>
-    
     </div>
 </div>
 {%endblock  %}
@@ -32,7 +30,7 @@
 <div class="row">
 <!--  Creates one column 3 wide total must be < 12  -->       
     <p class="lead"> {{template_title}}</p>    
-    <div class="col-sm-6 col-md-3 pull-left">
+    <div class="col-sm-6 col-md-3 push-left">
         <!-- The form to sign up  -->
         <form method='POST' action='' >{% csrf_token %}
         <!-- using crispy-forms third party lib for bootstrap 3 -->
