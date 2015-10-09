@@ -17,10 +17,13 @@
             <a class="navbar-brand" href="{% url 'contact' %}" ><li> Contact Us</li></a>
           </ul>
     
+
+
+
             <ul class="nav navbar-nav navbar-right">
             <!-- only show login bar if user is not logged in and we are not on the login page  -->
             {% if request.user.is_authenticated %}
-                <li class="active"><a href="{% url 'auth_logout' %}" style='color:#FFF; background-color:rgba(255, 0, 0, 0.90);'>Logout</a></li>
+                <a class='btn btn-primary' href="{% url 'auth_logout' %}" style='padding: 12px 15px; margin-bottom: 1px; margin-top: 1px; margin-right:5px'><li><b>Logout</b></li></a>
             {% else %}            
                 <!--  <li class="active"><a href="{% url 'auth_login' %}">Login</a></li>  -->
                 {% if not "accounts/login" in request.get_full_path %}
@@ -32,7 +35,7 @@
                     <div class='form-group'>          
                         <input type='password' class='form-control' name='password' placeholder='Password' />
                     </div>
-                    <button type='submit' class='btn btn-primary' >Login</button>            
+                    <button type='submit' class='btn btn-primary' style='padding: 8px 12px; margin-bottom: 1px; margin-top: 1px; margin-right:5px'><li><b>Login</b></li></button>            
                 </form>   
                 {% endif%}         
                 <a class='navbar-brand' href="{% url 'registration_register' %}" > <li>Register</li></a>            

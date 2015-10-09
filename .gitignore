@@ -1,0 +1,9 @@
+# ignore generated .pyc files,
+*.pyc
+# emacs autosaves
+*~
+# . hidden files
+.*
+!.gitignore
+# local area back up files
+*.bak
