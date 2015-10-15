@@ -42,9 +42,11 @@ INSTALLED_APPS = (
    #Thrid party
     'crispy_forms',
     'registration',
-    
+    'oauth2_provider', # oauth for figshare server
+    'corsheaders', # oauth2 token is passed by cors header
     #My apps
     'newsletter',
+    'figshare',
 )
 
 MIDDLEWARE_CLASSES = (

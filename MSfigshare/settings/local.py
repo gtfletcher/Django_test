@@ -42,9 +42,11 @@ INSTALLED_APPS = (
    #Thrid party
     'crispy_forms',
     'registration',
-    
+    'oauth2_provider', # oauth2 token is passed by cors header
+    'corsheaders', # oauth2 token is passed by cors header
     #My apps
     'newsletter',
+    'figshare',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +58,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # oauth2 token middleware for cors header
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+)
+
+
+AUTHENTICATION_BACKENDS = (
+        'oauth2_provider.backends.OAuth2Backend',
+        # Uncomment following if you want to access the admin
+        'django.contrib.auth.backends.ModelBackend',
 )
 
 ROOT_URLCONF = 'MSfigshare.urls'
@@ -130,3 +141,7 @@ LOGIN_REDIRECT_URL = '/'
 
 #django sites settings
 SITE_ID = 1
+
+
+#cors headers
+CORS_ORIGIN_ALLOW_ALL = True # only true for local testing! 

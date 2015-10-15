@@ -29,7 +29,7 @@
                 <!--  <li class="active"><a href="{% url 'auth_login' %}">Login</a></li>  -->
                 {% if not "accounts/login" in request.get_full_path %}
                 <form class ='navbar-form navbar-right' method='POST' action='{% url "auth_login" %}'>{% csrf_token %}
-                  
+                  <input type="hidden" name="next" value="{{ next }}" />
                     <div class="input-group margin-right-sm">
                       <span class="input-group-addon"><i class="fa fa-user fa-fw" style='color:blue;'></i></span>
                       <input type='text'  class='form-control'  name='username'   placeholder='Username' />

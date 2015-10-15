@@ -18,6 +18,8 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static 
 from django.contrib import admin
 
+from figshare.views import ApiEndpoint  # our api input class with the oauth2 get request
+
 # list of URL patterns
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)), # admin page
@@ -25,7 +27,9 @@ urlpatterns = [
     url(r'^aboutus/$' , 'MSfigshare.views.about' , name='aboutus' ), # aboutus page
     url(r'^$' , 'newsletter.views.home' , name='home' ), # all other pages
     url(r'^accounts/', include('registration.backends.default.urls')), # accounts/register accounts/login
-
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')), # oauth2 toolkit for figshare
+    url(r'^api/hello', ApiEndpoint.as_view()),  # figshare api and also resource server!
+    url(r'^api/secret$', 'figshare.views.secret_page', name='secret'), # test login only api page
 ] 
 
 if settings.DEBUG:
