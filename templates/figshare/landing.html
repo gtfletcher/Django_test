@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %} Search Figshare {% endblock %}
+{%block head_text %}
+<!-- jumbotron class adds a coloured container if the default sytle fill -->
+<div class="row">
+    <div class= "col-sm-7 push-left">
+        <div class="jumbotron">
+                <h1> Please enter your search query </h1>
+        </div>
+    </div>
+</div>
+{%endblock  %}
+
+{% block content_fluid %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-7">
+            <form method='POST' action=''>{% csrf_token %}
+            {{form|crispy}}
+            <input class='btn btn-primary'  type='submit' value='Submit' />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -11,7 +11,8 @@ class FigShareForm(forms.ModelForm):
                 'resource_name',
                 'resource_doi',
                 'resource_link',
-            ]
+                'resource_id',
+           ]
 
         # our defined cleaning of data
         def clean_author_name (self):
@@ -40,3 +41,8 @@ class FigShareForm(forms.ModelForm):
             # add validation code
             return resource_link
 
+        def clean_resource_id (self):
+
+            resource_id = self.cleaned_data.get('resource_id')
+            # add validation code
+            return resource_id

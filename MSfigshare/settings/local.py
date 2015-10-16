@@ -142,6 +142,15 @@ LOGIN_REDIRECT_URL = '/'
 #django sites settings
 SITE_ID = 1
 
+#Figshare API client oauth2 IDs
+#CLIENT_ID = '9KZmHISaMpcF5maYEkT9Naod5lL5rd49P255yxGu'
+CLIENT_ID = '88oBZBxcJlA2Zg2JsEi5Aw'
+#CLIENT_SECERT = 'MZA0c0Thrz4d2EV2ECuB0GvjTUmKndKleVLAhNozaZTZHuD8f3f8Qb4Uz5Ff69OKuw1IMdN4y45OxkkClwoOSV88Lq55Wqtw5yyjYSEIHRMx3SzNVpwn0jcq2GHJ0izS'
+CLIENT_SECERT = 'LmLTQp3Nr4PUdzJ0vX1ZrA'
+
+
+API_BACK_URL = 'http://api.figshare.com/v1/'
+API_TOKEN_URL = 'http://api.figshare.com/v1/pbl/oauth/request_token'
 
 #cors headers
 CORS_ORIGIN_ALLOW_ALL = True # only true for local testing! 

@@ -132,3 +132,7 @@ LOGIN_REDIRECT_URL = '/'
 
 #django sites settings
 SITE_ID = 1
+
+#Figshare API client oauth2 IDs
+CLIENT_ID = '9KZmHISaMpcF5maYEkT9Naod5lL5rd49P255yxGu'
+CLIENT_SECERT = 'MZA0c0Thrz4d2EV2ECuB0GvjTUmKndKleVLAhNozaZTZHuD8f3f8Qb4Uz5Ff69OKuw1IMdN4y45OxkkClwoOSV88Lq55Wqtw5yyjYSEIHRMx3SzNVpwn0jcq2GHJ0izS'
