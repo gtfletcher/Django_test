@@ -27,7 +27,7 @@ def ArticleDetails(article_id , client , oauth):
     
 # Adds resource link to article using id
 #            id          html_link   session  oauth header 
-def Addlink(  article_id ,  link ,  client , oauth   ):
+def Addlink( article_id ,  link ,  client , oauth ):
 
     # content body to send to api    
     body = { }
