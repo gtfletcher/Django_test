@@ -41,3 +41,13 @@ def Addlink( article_id ,  link ,  client , oauth ):
 
     results = json.loads(response.content)
     return results
+    
+    
+def OauthSetup( CLIENT_ID , CLIENT_SECERT , TOKEN_KEY , TOKEN_SECERT):
+    
+
+    oauth = OAuth1(client_key=CLIENT_ID, client_secret=CLIENT_SECERT,
+               resource_owner_key=TOKEN_KEY, resource_owner_secret=TOKEN_SECERT,
+               signature_type = 'auth_header')          
+    
+    return oauth

@@ -30,7 +30,9 @@ urlpatterns = [
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')), # oauth2 toolkit for figshare
     url(r'^api/hello', ApiEndpoint.as_view()),  # figshare api and also resource server!
     url(r'^api/secret$', 'figshare.views.secret_page', name='secret'), # test login only api page
-    url(r'^figshare/search$' ,'figshare.views.gen_search', name='gen_search'  ), # general search form
+    url(r'^figshare/search$' ,'figshare.views.Author_Search', name='gen_search'  ), # general search form
+    url(r'^figshare/author$' ,'figshare.views.Author_Search', name='auth_search'  ), # general search form
+    url(r'^figshare/article$' ,'figshare.views.Article_Search', name='art_search'  ), # general search form
 ] 
 
 if settings.DEBUG:

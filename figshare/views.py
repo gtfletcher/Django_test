@@ -18,7 +18,7 @@ else:
 
 import json
 
-from .forms import FigShareForm
+from .forms import FigShareForm , FigShare_AuthorForm , FigShare_Resource_Form
 
 #def resource_author (request):
 
@@ -91,27 +91,91 @@ def gen_search(request):
             print
         
 
-    return render(request, "figshare/landing.html" , context ) # basic get request
+    return render(request, "figshare/FigShareAPI_Auth_search.html" , context ) # basic get request
 
 
 
-def revoke_token (request):
-
-    token = 'JFPRZuDPeOaavNNMXaruX6ZnwQCCgm'
-    application = 'test'
-    client_id = 'X06hNIGH1A0fkM94HwybdQkvWlQ6apBN0PIt5ozs'
-    client_secert = 'l1Hv5azUpJs2QEq3cFTsebfKjKBiIfU9LNdLShrFC2iYI7EBj9eOhHozG3Vqnv8DgBb0FoWwCVTRMHSfnS8COKNVa8brxEOwPSc6NpxNx1sxOsENrDCX47fjY7tFnIAV'
-    
+@login_required()
+def Author_Search(request):
+    title = "Figshare Author Search"
+    form = FigShare_AuthorForm(request.POST or None) # call constructor 
     context = {
-
+        "form" : form ,
+        "title": title, 
     }
+    # post request after valid form input (Ask figshare api about the author)
+    if form.is_valid():
+        instance = form.save(commit=False) # but do not save to db
+        # set form locals         
+        author_name = form.cleaned_data.get("author_name") # get the cleaned data after all our validation
+        for key , val in form.cleaned_data.iteritems():           
+           print key,' is = ' , val
+        
+        #Getting info from figshare 
+        client = requests.session()        
+        # oauth1 token keys and setup 
+        TOKEN_KEY = 'z3UtX8IK2INOctmOKu8KpAnERq3z5HWyUEXmBeQKLYYgz3UtX8IK2INOctmOKu8KpA'
+        TOKEN_SECERT = 'O1KaANDRn0FKiaq5BjIviw'                          
+        oauth = OauthSetup( CLIENT_ID , CLIENT_SECERT , TOKEN_KEY , TOKEN_SECERT)                        
+        #API AuthorSearch method        
+        results = AuthorSearch(author_name , client , oauth)
+        
+        print results
+        print
+        #Add results to Quary set 
+        QuerySet = results.get("items")
+        if len(QuerySet) == 0 :
+            QuerySet.append({'full_name':'No Users Found'})            
+            
+        print "QuarySet is = ", QuerySet        
+        context = {
+        "form" : form ,
+        "title": title, 
+        "queryset" : QuerySet,        
+        }        
+        
+    return render(request, "figshare/FigShareAPI_Auth_search.html" , context ) # basic get request
 
-    
-    
-    return render(request, "home.html" , context )
-    
+@login_required()
+def Article_Search(request):
+    title = "Figshare Article Search" 
+    form = FigShare_Resource_Form(request.POST or None) # call constructor 
+    context = {
+        "form" : form ,
+        "title": title, 
+    }
+    # post request after valid form input (Ask figshare api about the author)
+    if form.is_valid():
+        instance = form.save(commit=False) # but do not save to db
+        # set form locals         
+        article_id = form.cleaned_data.get("resource_id") # get the cleaned data after all our validation
+        for key , val in form.cleaned_data.iteritems():           
+           print key,' is = ' , val
+        
+        #Getting info from figshare 
+        client = requests.session()        
+        # oauth1 token keys and setup 
+        TOKEN_KEY = 'z3UtX8IK2INOctmOKu8KpAnERq3z5HWyUEXmBeQKLYYgz3UtX8IK2INOctmOKu8KpA'
+        TOKEN_SECERT = 'O1KaANDRn0FKiaq5BjIviw'                          
+        oauth = OauthSetup( CLIENT_ID , CLIENT_SECERT , TOKEN_KEY , TOKEN_SECERT)                        
+        #API AuthorSearch method        
+        results = ArticleDetails(article_id , client , oauth)
+        
+        print results
+        print
+        #Add results to Quary set 
+        QuerySet = results.get("items")
+        if len(QuerySet) == 0 :
+            QuerySet.append({'full_name':'No Article Found'})            
+            
+        print "QuarySet is = ", QuerySet        
+        #Add QuerySet to context so we can render it in the html page
+        context = {
+        "form" : form ,
+        "title": title, 
+        "queryset" : QuerySet,        
+        }        
+        
+    return render(request, "figshare/FigShareAPI_Art_search.html" , context ) # basic get request
 
-#    
-#    return render(request, "home.html" , context )
-# Create your views here.
-#
+

@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import FigShare
+from .models import FigShare #, FigShare_Author
 
 class FigShareForm(forms.ModelForm):
 
@@ -43,6 +43,37 @@ class FigShareForm(forms.ModelForm):
 
         def clean_resource_id (self):
 
+            resource_id = self.cleaned_data.get('resource_id')
+            # add validation code
+            return resource_id
+            
+            
+# Author Search form (just need the author name)    
+class FigShare_AuthorForm(forms.ModelForm):
+
+        class Meta:
+            model = FigShare
+            fields = [         # fields in form we want
+                'author_name',
+           ]
+
+        # our defined cleaning of data
+        def clean_author_name (self):
+            author_name = self.cleaned_data.get('author_name')
+            # add validation code
+            return author_name
+
+
+class FigShare_Resource_Form(forms.ModelForm):
+
+        class Meta:
+            model = FigShare
+            fields = [         # resource fields in form we want
+            'resource_id',   
+           ]
+
+        # our defined cleaning of data
+        def clean_resource_id (self):
             resource_id = self.cleaned_data.get('resource_id')
             # add validation code
             return resource_id

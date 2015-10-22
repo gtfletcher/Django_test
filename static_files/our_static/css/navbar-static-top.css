@@ -9,12 +9,81 @@ body {
   color: #FFF;
 }
 
-.navbar-default .navbar-brand{
- color:#FFF;
+.navbar-default .navbar-brand {
+ color:#FFF ;
 
 }
+
+
+.dropdown {
+color: #FFF; 
+border-color: #D8052B;
+}
+
+.dropdown.open{
+color: #FFF; 
+border-color: #D8052B;
+}
+
+.dropdown-toggle{
+color: #FFF; 
+border-color: #D8052B;
+
+}
+
+.navbar-default .navbar-nav > .open > a{
+	color: #FFF;
+	background-color: #D8052B;
+    font-size: 18px
+}
+
+.navbar-default .navbar-nav > .open > a:focus{ 
+	color: #FFF;
+	background-color: #D8052B;
+    font-size: 18px
+}
+
+.navbar-default .navbar-nav > .open > a:hover {
+	color: black;
+	background-color: #D8052B;
+    font-size: 18px
+}
+
+.navbar-default .navbar-nav > li > a:focus{
+	color: #FFF;
+	background-color: transparent;
+    font-size: 18px
+}
+.navbar-default .navbar-nav > li > a:hover {
+	color: black;
+	background-color: transparent;
+    font-size: 18px
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #FFF;
+     background-color: transparent;
+    font-size: 18px
+}
+
 
 .navbar-default .navbar-brand:hover{
  color:black;
 
+}
+
+.dropdown-menu > li > a {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: 400;
+	line-height: 1.42857;
+	color: black;
+	white-space: nowrap;
+}
+
+.navbar-nav > li > .dropdown-menu {
+	margin-top: 2px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 }
