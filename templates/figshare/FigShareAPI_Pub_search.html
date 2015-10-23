@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %} Search Figshare {% endblock %}
+{%block head_text %}
+<!-- jumbotron class adds a coloured container if the default sytle fill -->
+<div class="row">
+    <div class= "col-sm-7 push-left">
+        <div class="jumbotron">
+            {% if title%}
+            <h1> {{title}} </h1>
+            {% endif %}               
+             <h2> Please enter your FigShare Public search query </h2>
+        </div>
+    </div>
+</div>
+{%endblock  %}
+
+{% block content_fluid %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-7">
+            <h2> Fields marked with * are required </h2>
+            <form method='POST' action=''>{% csrf_token %}
+            {{form|crispy}}
+            <input class='btn btn-primary'  type='submit' value='Submit' />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<br/>
+{% block query_results %}
+{% if queryset %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-10">
+            <h1> Results Page {{page}} of {{max_page}}</h1> 
+            <table class='table'>           
+            <tr><td> Article ID </td><td> Article Name </td><td> Author </td><td> Remote Links </td><td> Date Published </td><td> DOI </td></tr>
+            {% for instance in queryset %} 
+            <tr><td><a href="{{instance.figshare_url}}">{{instance.article_id}}</a></td><td> {{instance.title |safe}} </td><td> {% for author in instance.authors %} {{author.author_name}} <br/> {% endfor %} </td><td> {% for link in instance.links %} <a href={{link}}>{{link}}</a><br/>{% endfor %}  </td><td>   {{instance.published_date}}   </td><td> <a href="{{instance.DOI}}">View</a> </td></tr>            
+            {% endfor %}
+            </table>
+            <!-- {{queryset}} -->
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

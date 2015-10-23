@@ -4,6 +4,16 @@ import requests
 from requests_oauthlib import OAuth1
 import json
 
+# setup oauth for other methods # needs oauth2 3 legged auth for other peoples resources
+#            API_app id     API_app sec  , resource token   resource sec 
+def OauthSetup( CLIENT_ID , CLIENT_SECERT , TOKEN_KEY , TOKEN_SECERT):
+    
+
+    oauth = OAuth1(client_key=CLIENT_ID, client_secret=CLIENT_SECERT,
+               resource_owner_key=TOKEN_KEY, resource_owner_secret=TOKEN_SECERT,
+               signature_type = 'auth_header')              
+    return oauth
+
 #   Search figshare for author
 #             Author from form  session  oauth header
 def AuthorSearch(author_name, client ,oauth):
@@ -42,12 +52,33 @@ def Addlink( article_id ,  link ,  client , oauth ):
     results = json.loads(response.content)
     return results
     
+#Public FigShare API search
+#             body dict  session  oauth  
+def PublicSearch (body , client ):
+    headers = {'content-type':'application/json'}
+    search_command= 'http://api.figshare.com/v1/articles/search?search_for='+body.get('search_for')
+    for key, val in body.iteritems():
+        if not key == 'search_for': 
+            search_command += '&'+ key + '=' + str(val)
     
-def OauthSetup( CLIENT_ID , CLIENT_SECERT , TOKEN_KEY , TOKEN_SECERT):
-    
+    #print search_command
+    response = client.get(search_command)
+    results = json.loads(response.content)
+    return results
 
-    oauth = OAuth1(client_key=CLIENT_ID, client_secret=CLIENT_SECERT,
-               resource_owner_key=TOKEN_KEY, resource_owner_secret=TOKEN_SECERT,
-               signature_type = 'auth_header')          
-    
-    return oauth
+# public search for an article
+def PubArtSearch ( article_id , client ):    
+    search_command = 'http://api.figshare.com/v1/articles/'+ str(article_id)
+    response = client.get(search_command)
+    results = json.loads(response.content)
+    return results
+
+# gets the url of a public search result (made with PublicSearch)
+def GetArticleURL(item , client):
+    APIurl = item.get('url')  # This is the api article get request  
+    response = client.get(APIurl)
+    link_result = json.loads(response.content)
+    url = link_result.get("items")[0].get("figshare_url")
+    #print "Article url is =" , url            
+    return url
+
