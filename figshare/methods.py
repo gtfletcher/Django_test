@@ -73,12 +73,16 @@ def PubArtSearch ( article_id , client ):
     results = json.loads(response.content)
     return results
 
-# gets the url of a public search result (made with PublicSearch)
-def GetArticleURL(item , client):
+# gets the url/doi of a public search result (made with PublicSearch)
+def GetArticleResults(item , client):
     APIurl = item.get('url')  # This is the api article get request  
     response = client.get(APIurl)
     link_result = json.loads(response.content)
-    url = link_result.get("items")[0].get("figshare_url")
-    #print "Article url is =" , url            
-    return url
+    # Add the article results we want to pass to QuerySet for rendering on html page
+    results = {}    
+    results["figshare_url"] = link_result.get("items")[0].get("figshare_url") # get figshare url
+    results["publisher_doi"] =link_result.get("items")[0].get("publisher_doi") # get doi publisher 
+    #print results          
+    return results 
+    # returns a dict of results to update the queryset dict
 

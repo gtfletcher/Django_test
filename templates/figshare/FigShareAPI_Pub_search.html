@@ -39,7 +39,7 @@
             <table class='table'>           
             <tr><td> Article ID </td><td> Article Name </td><td> Author </td><td> Remote Links </td><td> Date Published </td><td> DOI </td></tr>
             {% for instance in queryset %} 
-            <tr><td><a href="{{instance.figshare_url}}">{{instance.article_id}}</a></td><td> {{instance.title |safe}} </td><td> {% for author in instance.authors %} {{author.author_name}} <br/> {% endfor %} </td><td> {% for link in instance.links %} <a href={{link}}>{{link}}</a><br/>{% endfor %}  </td><td>   {{instance.published_date}}   </td><td> <a href="{{instance.DOI}}">View</a> </td></tr>            
+            <tr><td><a href="{{instance.figshare_url}}">{{instance.article_id}}</a></td><td> {{instance.title |safe}} </td><td> {% for author in instance.authors %} {{author.author_name}} <br/> {% endfor %} </td><td> {% for link in instance.links %} <a href={{link}}>{{link}}</a><br/>{% endfor %}  </td><td>   {{instance.published_date}}   </td><td> <a href="{{instance.publisher_doi}}">View</a> </td></tr>            
             {% endfor %}
             </table>
             <!-- {{queryset}} -->

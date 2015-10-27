@@ -224,7 +224,7 @@ def Pub_Search(request):
         for item in QuerySet:
             #print item
             # this gets the figshare url atm this is all we need
-            item['figshare_url']=GetArticleURL(item , client) # Gets the figshare url from the api    
+            item.update(GetArticleResults(item , client)) # Gets the figshare url/publisher doi from the article api    
    
         if len(QuerySet) == 0 :  # if no items were found tell the user 
             QuerySet.append({'title':'<p> No Results found </p>'})
