@@ -20,7 +20,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-7">
-            <form method='POST' action='' >{% csrf_token %}
+            <form method='POST' action='' enctype="multipart/form-data" >{% csrf_token %}
             {{form|crispy}}
             <input class='btn btn-primary'  type='submit' value='Submit' />
             </form>
@@ -34,7 +34,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-7">
-            <h1> Results </h1> 
+            <h1> Article Created </h1> 
             <table class='table'>           
             <tr><td> Article Name </td><td> Author </td><td> Remote Links </td><td> Date Published </td><td> Figshare Link </td></tr>
             {% for instance in queryset %} 

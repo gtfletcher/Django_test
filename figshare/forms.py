@@ -68,6 +68,20 @@ class FigShare_Resource_Form(forms.ModelForm):
         # add validation code
         return resource_id
 
+class FigShare_Create_Article_Form(forms.ModelForm):
+    class Meta:
+        model = FigShare
+        fields = [         # resource fields in form we want
+        'json_file', # upload meta data from json file   
+        ]
+
+    # our defined cleaning of data
+    #def clean_json_file (self):
+    #    json_file = self.cleaned_data.get('json_file')
+        # add validation code
+    #    return json_file
+
+
 #Public search form
 class PubSearchForm(forms.ModelForm):
     class Meta:

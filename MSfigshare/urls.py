@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^figshare/search$' ,'figshare.views.Pub_Search', name='gen_search'  ), # general search form
     url(r'^figshare/author$' ,'figshare.views.Author_Search', name='auth_search'  ), # private  author search
     url(r'^figshare/article$' ,'figshare.views.Article_Search', name='art_search'  ), # private article search
+    url(r'^figshare/create$' ,'figshare.views.Create_Article', name='art_create'  ), # private article search
 ] 
 
 if settings.DEBUG:

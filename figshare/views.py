@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 from .methods import *
-
 import requests 
 #from oauth_hook import OAuthHook
 from requests_oauthlib import OAuth1
@@ -18,7 +17,7 @@ else:
 
 import json
 
-from .forms import FigShareForm , FigShare_AuthorForm , FigShare_Resource_Form , PubSearchForm # API forms
+from .forms import FigShareForm , FigShare_AuthorForm , FigShare_Resource_Form , FigShare_Create_Article_Form ,PubSearchForm # API forms
 
 #def resource_author (request):
 
@@ -180,7 +179,75 @@ def Article_Search(request):
         
     return render(request, "figshare/FigShareAPI_Art_search.html" , context ) # basic get request
 
+# Create a new figshare article
+def Create_Article(request):
+    
+    title = "Figshare Create Article" 
+    if request.method == 'POST':
+        form = FigShare_Create_Article_Form(request.POST, request.FILES) # call constructor for post
 
+    else :
+        form = FigShare_Create_Article_Form() # get constructor
+    
+    context = {
+        "form" : form ,
+        "title": title, 
+    }
+    # post request after valid form input (Ask figshare api about the author)
+    if form.is_valid():
+        for key , val in form.cleaned_data.iteritems():           
+           print key,' is = ' , val
+        
+        json_file = form.cleaned_data.get("json_file")
+        json_file.open() #open json file
+        json_data = json_file.read()
+        data = json.loads(json_data)
+        print data , type(data) #prints the json dict
+        print
+        #Getting info from figshare 
+        client = requests.session()        
+        # oauth1 token keys and setup 
+        TOKEN_KEY = 'z3UtX8IK2INOctmOKu8KpAnERq3z5HWyUEXmBeQKLYYgz3UtX8IK2INOctmOKu8KpA'
+        TOKEN_SECERT = 'O1KaANDRn0FKiaq5BjIviw'                          
+        oauth = OauthSetup( CLIENT_ID , CLIENT_SECERT , TOKEN_KEY , TOKEN_SECERT)                        
+        #API AuthorSearch method        
+        result = CreateArticle(data, client , oauth)
+        print result
+        
+        article_id = result.get("article_id") # we will need this to decorate the article
+        
+        #### decorate the article now we have the ID ####
+        # if there are no files don't bother trying to upload anything        
+        deco_result = {} # want to turn last one into QuerySet        
+        if len(data.get("files")) > 0:        
+            deco_result = Addfiles_json(article_id, data ,client, oauth  )        
+            print deco_result
+            
+        # if there are no tags don't bother trying to upload anything        
+        if len(data.get("tags")) > 0: 
+            deco_result = Addtag_json(article_id , data , client , oauth )
+            print deco_result
+        
+        # if there are no tags don't bother trying to upload anything
+        if len(data.get("links")) > 0: 
+            deco_result = Addlink_json(article_id , data , client , oauth )
+            print deco_result
+        
+        #delete_result = DeleteArticle(article_id , client , oauth )
+        #print delete_result
+        QuerySet = deco_result.get("items") # this is an arrary of article details 
+       
+        context = {
+        "form" : form ,
+        "title": title, 
+        "queryset": QuerySet
+        }
+        
+        
+    return render(request, "figshare/FigShareAPI_Create_Art.html" , context ) # return the article details as it will be an article
+
+
+# Pub search view
 def Pub_Search(request):
     #get request info (first pass)
     title = "Figshare Public Search" 
